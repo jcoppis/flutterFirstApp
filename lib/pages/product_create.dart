@@ -5,7 +5,18 @@ class ProductCreatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // no retorno Scaffold porque es cargada desde un tab
     return Center(
-      child: Text('Create a Product'),
+      child: RaisedButton(
+        child: Text('Save'),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Center(
+                  child: Text('This is a Modal!'),
+                );
+              });
+        },
+      ),
     );
   }
 }
