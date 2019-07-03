@@ -12,6 +12,47 @@ class _AuthPageState extends State<AuthPage> {
   String _passwordValue;
   bool _acceptTerms = false;
 
+  DecorationImage _buildBackgroundImage() {
+    return DecorationImage(
+      fit: BoxFit.cover,
+      colorFilter:
+          ColorFilter.mode(Colors.black.withOpacity(0.3), BlendMode.dstATop),
+      image: AssetImage('assets/images/gatos.jpeg'),
+    );
+  }
+
+  Widget _buildEmailTextField() {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: 'Email',
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (String value) {
+        setState(() {
+          _emailValue = value;
+        });
+      },
+    );
+  }
+
+  Widget _buildPasswordTextField() {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: 'Password',
+        filled: true,
+        fillColor: Colors.white,
+      ),
+      obscureText: true,
+      onChanged: (String value) {
+        setState(() {
+          _passwordValue = value;
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,47 +61,18 @@ class _AuthPageState extends State<AuthPage> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.3), BlendMode.dstATop),
-            image: AssetImage('assets/images/gatos.jpeg'),
-          ),
+          image: _buildBackgroundImage(),
         ),
         padding: EdgeInsets.all(10.0),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: (String value) {
-                    setState(() {
-                      _emailValue = value;
-                    });
-                  },
-                ),
+                _buildEmailTextField(),
                 SizedBox(
                   height: 10.0,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
-                  obscureText: true,
-                  onChanged: (String value) {
-                    setState(() {
-                      _passwordValue = value;
-                    });
-                  },
-                ),
+                _buildPasswordTextField(),
                 SwitchListTile(
                   value: _acceptTerms,
                   title: Text('Accept Terms'),
