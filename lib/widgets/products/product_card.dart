@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
-class Products extends StatelessWidget {
-  final List<Map<String, dynamic>> products;
+import './price_tag.dart';
 
-  Products(this.products);
+class ProductCard extends StatelessWidget {
+  final Map<String, dynamic> product;
+  final int productIndex;
 
-  Widget _builtProductItem(BuildContext context, int index) {
+  ProductCard(this.product, this.productIndex);
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       child: Column(
         children: <Widget>[
-          Image.asset(products[index]['image']),
+          Image.asset(product['image']),
           Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  products[index]['title'],
+                  product['title'],
                   style: TextStyle(
                     fontSize: 26.0,
                     fontWeight: FontWeight.bold,
@@ -24,17 +28,7 @@ class Products extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8.0),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.5),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Text(
-                    '\$${products[index]['price'].toString()}',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
+                PriceTag(product['price']),
               ],
             ),
           ),
@@ -54,7 +48,7 @@ class Products extends StatelessWidget {
                 color: Theme.of(context).accentColor,
                 onPressed: () => Navigator.pushNamed<bool>(
                       context,
-                      '/product/' + index.toString(),
+                      '/product/' + productIndex.toString(),
                     ),
               ),
               IconButton(
@@ -67,23 +61,5 @@ class Products extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget _builtProductList() {
-    if (products.length > 0) {
-      return ListView.builder(
-        itemBuilder: _builtProductItem,
-        itemCount: products.length,
-      );
-    } else {
-      return Center(
-        child: Text('No products found, please add some'),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _builtProductList();
   }
 }
