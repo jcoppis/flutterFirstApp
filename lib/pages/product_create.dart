@@ -64,10 +64,14 @@ class _ProductCreatePageState extends State<ProductCreatePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double _deviceWidth = MediaQuery.of(context).size.width;
+    final double _targetWidth = _deviceWidth > 550.0 ? 500.0 : _deviceWidth * 0.95;
+    final double _targetPadding = _deviceWidth - _targetWidth;
     // no retorno Scaffold porque es cargada desde un tab
     return Container(
       margin: EdgeInsets.all(10.0),
       child: ListView(
+        padding: EdgeInsets.symmetric(horizontal: _targetPadding/2),
         children: <Widget>[
           _buildTitleTextField(),
           _buildDescriptionTextField(),

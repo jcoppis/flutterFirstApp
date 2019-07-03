@@ -55,6 +55,8 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    final double _deviceWidth = MediaQuery.of(context).size.width;
+    final double _targetWidth = _deviceWidth > 550.0 ? 500.0 : _deviceWidth * 0.95;
     return Scaffold(
       appBar: AppBar(
         title: Text('EasyList'),
@@ -66,36 +68,39 @@ class _AuthPageState extends State<AuthPage> {
         padding: EdgeInsets.all(10.0),
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _buildEmailTextField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                _buildPasswordTextField(),
-                SwitchListTile(
-                  value: _acceptTerms,
-                  title: Text('Accept Terms'),
-                  onChanged: (bool value) {
-                    setState(() {
-                      _acceptTerms = value;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  child: Text('LOGIN'),
-                  onPressed: () {
-                    print(_emailValue);
-                    print(_passwordValue);
-                    Navigator.pushReplacementNamed(context, '/products');
-                  },
-                ),
-              ],
+            child: Container(
+              width: _targetWidth,
+              child: Column(
+                children: <Widget>[
+                  _buildEmailTextField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  _buildPasswordTextField(),
+                  SwitchListTile(
+                    value: _acceptTerms,
+                    title: Text('Accept Terms'),
+                    onChanged: (bool value) {
+                      setState(() {
+                        _acceptTerms = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    child: Text('LOGIN'),
+                    onPressed: () {
+                      print(_emailValue);
+                      print(_passwordValue);
+                      Navigator.pushReplacementNamed(context, '/products');
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
