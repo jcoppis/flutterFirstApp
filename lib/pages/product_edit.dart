@@ -76,13 +76,13 @@ class _ProductEditPageState extends State<ProductEditPage> {
           child: Text('Save'),
           textColor: Colors.white,
           onPressed: () => _submitForm(
-              model.addProduct, model.updateProduct, model.selProductIndex),
+              model.addProduct, model.updateProduct, model.selectProduct, model.selProductIndex),
         );
       },
     );
   }
 
-  void _submitForm(Function addProduct, Function updateProduct,
+  void _submitForm(Function addProduct, Function updateProduct, Function setSelectedProduct,
       [int selectedProductIndex]) {
     if (!_formKey.currentState.validate()) {
       return;
@@ -103,7 +103,7 @@ class _ProductEditPageState extends State<ProductEditPage> {
         _formData['image'],
       );
     }
-    Navigator.pushReplacementNamed(context, '/products');
+    Navigator.pushReplacementNamed(context, '/products').then((_) => setSelectedProduct());
   }
 
   Widget _buildPageContent(BuildContext context, Product product) {
